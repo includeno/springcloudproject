@@ -26,8 +26,7 @@ public class PaymentController {
 
     @PostMapping("/payment")
     public CommonResult create(HttpServletRequest request,@RequestBody Payment payment){
-        String id=request.getParameter("id");
-        System.out.println("request.getParameter id:"+id);
+
         System.out.println("接收到的payment"+payment);
         int result=paymentService.create(payment);
         log.info("结果是",result);
