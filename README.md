@@ -2,10 +2,17 @@
 my personal springcloud demo
 
 分支说明:
+
 version1 version_1_init 
+
 初始项目,只配置好父工程和初始服务 消费者服务和订单服务
+
 version2 version_2_eureka_service
-单机版 使用eureka进行基础性协调服务,未使用
+
+单机版 使用eureka进行基础性协调服务,使用actuator
+
+按照服务器ip-服务名-端口号展示,添加actuator
+
 version3 
 基础集群版 eureka集群 服务发现且消费者服务关联eureka内订单服务
 eureka 2个端口7000和7001 eureka服务器相互注册
