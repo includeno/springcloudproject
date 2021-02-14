@@ -10,7 +10,7 @@ ADD . /app
 COPY target/cloudeurekaserver_7000-1.0-SNAPSHOT.jar /app/cloudeurekaserver_7000.jar
 
 #指定容器启动程序及参数   <ENTRYPOINT> "<CMD>"
-ENTRYPOINT ["java","-jar","/app/cloudeurekaserver_7000.jar"]
+ENTRYPOINT ["java","-jar","/app/cloudeurekaserver_7000.jar","--server.port=7000"]
 
 #vscode 终端
 #打包 vscode目录为./cloudeurekaserver_7000
