@@ -18,21 +18,21 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class OrderController {
 
-    //public static final String PAYMENT_URL="http://localhost:8000";
-    public static final String PAYMENT_URL="http://CLOUDPAYMENT8000";//需要去RestTemplate bean添加负载均衡 java.net.UnknownHostException: CLOUDPAYMENT8000
+    //zookeeper cli-> ls /services  -> cloudpayment8000
+    public static final String ZOOKEEPER_PAYMENT_URL="http://cloudpayment8000";//需要去RestTemplate bean添加负载均衡 java.net.UnknownHostException: CLOUDPAYMENT8000
     @Autowired
     RestTemplate restTemplate;
 
     @GetMapping("/produce")
     public CommonResult<Payment> create(Payment payment){
         System.out.println("发送的payment"+payment);
-        return restTemplate.postForObject(PAYMENT_URL+"/payment",payment,CommonResult.class);
+        return restTemplate.postForObject(ZOOKEEPER_PAYMENT_URL+"/payment",payment,CommonResult.class);
     }
 
     @GetMapping("/consume")
     public CommonResult<Payment> getPayment(Long id){
         System.out.println(id);
-        return restTemplate.getForObject(PAYMENT_URL+"/payment",CommonResult.class,id);
+        return restTemplate.getForObject(ZOOKEEPER_PAYMENT_URL+"/payment",CommonResult.class,id);
     }
 
 }
