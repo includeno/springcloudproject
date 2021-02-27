@@ -13,6 +13,8 @@ version2 version_2_eureka_service
 
 按照服务器ip-服务名-端口号展示,添加actuator
 
+version2.1 version_2_eureka_service_discovery
+
 version3 
 基础集群版 eureka集群 服务发现且消费者服务关联eureka内订单服务
 eureka 2个端口7000和7001 eureka服务器相互注册

@@ -11,7 +11,7 @@
         insert into payment(id,serial) values (#{id},#{serial})
     </insert>
 
-    <select id="getPaymentById" parameterType="Long" resultMap="BaseResultMap">
+    <select id="com.payment.dao.PaymentDao.getPaymentById" parameterType="Long" resultType="com.payment.entity.Payment">
         select * from payment where id = #{id}
     </select>
 </mapper>

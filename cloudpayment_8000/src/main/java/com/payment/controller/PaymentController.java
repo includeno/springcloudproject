@@ -5,12 +5,15 @@ import com.payment.entity.Payment;
 import com.payment.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author includeno
@@ -22,6 +25,10 @@ public class PaymentController {
 
     @Autowired
     PaymentService paymentService;
+
+    //服务发现
+    @Autowired
+    DiscoveryClient discoveryClient;
 
 
     @PostMapping("/payment")
@@ -48,5 +55,20 @@ public class PaymentController {
         else {
             return new CommonResult(444,"查询失败");
         }
+    }
+
+    @GetMapping("/payment/discovery")
+    public Object discovery(String instancename){
+        //获取所有的服务名称
+        List<String> services=discoveryClient.getServices();
+        for(String element:services){
+            log.info("element: "+element);
+        }
+        //根据服务名称查询所有服务
+        List<ServiceInstance> instances=discoveryClient.getInstances(instancename);
+        for(ServiceInstance element:instances){
+            log.info("instence:InstanceId "+element.getInstanceId()+" ,Host"+element.getHost()+" ,Port"+element.getPort()+" ,Scheme "+element.getScheme());
+        }
+        return this.discoveryClient;
     }
 }

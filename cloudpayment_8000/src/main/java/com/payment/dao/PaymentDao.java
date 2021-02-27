@@ -15,5 +15,5 @@ public interface PaymentDao {
     //insert
     public int create(Payment payment);
     //select
-    public Payment getPaymentById(@Param("id")Long id);
+    public Payment getPaymentById(Long id);
 }
