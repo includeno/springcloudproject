@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author includeno
  * @since 2021/2/11
@@ -18,21 +21,25 @@ import org.springframework.web.client.RestTemplate;
 @RestController
 public class OrderController {
 
-    //zookeeper cli-> ls /services  -> cloudpayment8000
-    public static final String ZOOKEEPER_PAYMENT_URL="http://cloudpayment8000";//需要去RestTemplate bean添加负载均衡 java.net.UnknownHostException: CLOUDPAYMENT8000
+    //zookeeper cli-> ls /services  -> cloudpayment
+    //consul spring.cloud.consul.discovery.service-name=cloudpayment
+    public static final String CONSUL_PAYMENT_URL="http://cloudpayment";//需要去RestTemplate bean添加负载均衡 java.net.UnknownHostException: CLOUDPAYMENT8000
     @Autowired
     RestTemplate restTemplate;
 
     @GetMapping("/produce")
     public CommonResult<Payment> create(Payment payment){
         System.out.println("发送的payment"+payment);
-        return restTemplate.postForObject(ZOOKEEPER_PAYMENT_URL+"/payment",payment,CommonResult.class);
+        return restTemplate.postForObject(CONSUL_PAYMENT_URL+"/payment",payment,CommonResult.class);
     }
 
     @GetMapping("/consume")
-    public CommonResult<Payment> getPayment(Long id){
+    public CommonResult<Payment> getPayment(Integer id){
         System.out.println(id);
-        return restTemplate.getForObject(ZOOKEEPER_PAYMENT_URL+"/payment",CommonResult.class,id);
+
+        Map<String, Integer> params = new HashMap<String, Integer>();
+        params.put("id", id);
+        return restTemplate.getForObject(CONSUL_PAYMENT_URL+"/payment?id={id}",CommonResult.class,params);
     }
 
 }

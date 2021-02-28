@@ -18,6 +18,8 @@
         <module>
             cloudeurekaserver_7000
         </module>
+        <module>cloudpayment_8001</module>
+        <module>cloudpayment_8002</module>
     </modules>
 
     <name>Maven</name>
